@@ -1,14 +1,1 @@
-Error: Cannot find module '/home/project/index.js'
-    at Module._resolveFilename (node:internal/modules/cjs/loader:160:16340)
-    at defaultResolveImpl (node:internal/modules/cjs/loader:160:10576)
-    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:160:10636)
-    at Module._load (node:internal/modules/cjs/loader:160:13678)
-    at TracingChannel.traceSync (node:diagnostics_channel:26:3678)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:160:3949)
-    at Module.executeUserEntryPoint (node:internal/modules/run_main:179:2179)
-    at internal/main/run_main_module (node:internal/main/run_main_module:155:484) {
-  code: 'MODULE_NOT_FOUND',
-  requireStack: []
-}
-
-Node.js v22.22.0
+jsh: command not found: nohup
